@@ -8,7 +8,6 @@ function Webcam() {
   const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
   const peerInstance = useRef(null);
   const currentUserVideoRef=useRef(null)
-
   useEffect(() => {
     const peer = new Peer();
     peer.on("open", (id)=> {
@@ -19,12 +18,11 @@ function Webcam() {
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;
-
       getUserMedia({ video: true }, (mediaStream) => {
         currentUserVideoRef.current.srcObject=mediaStream
         currentUserVideoRef.current.play()
         call.answer(mediaStream);
-        call.on("stream",(remoteStream)=>{
+        call.on("stream",function(remoteStream){
             remoteVideoRef.current.srcObject = remoteStream;
             remoteVideoRef.current.play()
         })
@@ -38,7 +36,6 @@ function Webcam() {
       navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia;
-
     getUserMedia({ video: true }, (mediaStream) => {
         currentUserVideoRef.current.srcObject=mediaStream
         currentUserVideoRef.current.play()
@@ -49,7 +46,7 @@ function Webcam() {
       });
     });
   };
-// console.log(peerId);
+console.log(peerId);
   return (
     <div>
         <h3>Current User id: {peerId}</h3>
